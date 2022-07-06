@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <button class="exchange">EXCHANGE</button>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">EXCHANGE</button>
 
     <div>
       <select name="languages">
@@ -31,15 +31,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-
-  .exchange {
-    margin: 0;
-    padding: 15px;
-    font-size: 20px;
-    border: none;
-    background-color: rgba(0, 89, 255, 0.882);
-    color: #fff;
   }
 
   .login {
