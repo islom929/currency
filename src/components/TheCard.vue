@@ -5,7 +5,7 @@ import { onUpdated, reactive, ref, watchEffect } from 'vue'
     'usd','btc','eur','eth'
   ])
   const currencyFrom = ref('btc')
-  const currencyTo = ref('eur')
+  const currencyTo = ref('usd')
   const currencyHave = reactive({
     value: '',
     disabled: false
@@ -39,13 +39,15 @@ import { onUpdated, reactive, ref, watchEffect } from 'vue'
 
   onUpdated(() => {
     if (currencyHave.disabled) {
-      currencyHave.value = (currencyNeed.value * currencyRate.value).toFixed(3)
+      console.log((currencyNeed.value * currencyRate.value))
+      currencyHave.value = ((currencyNeed.value / currencyRate.value) - ((currencyNeed.value / currencyRate.value) / 100)).toFixed(3)
       if (currencyFrom.value == 'usd') {
         currencyRateUsd.value = currencyRate.value
       }
     }
     if (currencyNeed.disabled) {
-      currencyNeed.value = (currencyHave.value * currencyRate.value).toFixed(3)
+      console.log(currencyHave.value * currencyRate.value)
+      currencyNeed.value = ((currencyHave.value * currencyRate.value) + ((currencyHave.value * currencyRate.value) / 100)).toFixed(3)
     }
   })
 
@@ -97,8 +99,8 @@ import { onUpdated, reactive, ref, watchEffect } from 'vue'
         </div>
       </div>
       </form>
-    <div class="result-usd" v-show="currencyHave.disabled">Rate: ${{ currencyNeed.value ? (currencyNeed.value * currencyRateUsd).toFixed(3) : currencyRateUsd }}</div>
-    <div class="result-usd" v-show="currencyNeed.disabled">Rate: ${{ currencyHave.value ? (currencyHave.value * currencyRateUsd).toFixed(3) : currencyRateUsd }}</div>
+    <div class="result-usd" v-show="currencyHave.disabled">Rate: ${{ currencyNeed.value ? ((currencyNeed.value / currencyRateUsd) - ((currencyNeed.value / currencyRateUsd) / 100)).toFixed(3) : currencyRateUsd }}</div>
+    <div class="result-usd" v-show="currencyNeed.disabled">Rate: ${{ currencyHave.value ? ((currencyHave.value * currencyRateUsd) + ((currencyHave.value * currencyRateUsd) / 100)).toFixed(3) : currencyRateUsd }}</div>
   </div>
 </template>
 
